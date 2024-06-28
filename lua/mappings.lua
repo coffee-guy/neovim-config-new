@@ -56,7 +56,7 @@ map("i", "<M-a>", "<ESC>A", { desc = "Edit move to line end" })
 map("i", "<M-i>", "<ESC>I", { desc = "Edit move to line start" })
 
 -- Window & splits
-map("n", "<leader>w", "<C-w>w", { desc = "Window change to next" })
+-- map("n", "<leader>w", "<C-w>w", { desc = "Window change to next" })
 map("n", "<leader>k", "<C-w>k", { desc = "Window switch up" })
 map("n", "<leader>j", "<C-w>j", { desc = "Window switch down" })
 map("n", "<leader>h", "<C-w>h", { desc = "Window focus left" })
@@ -74,6 +74,10 @@ map("n", "<down>", ":res -5<CR>", { desc = "Window size down" })
 map("n", "<left>", ":vertical resize-5<CR>", { desc = "Window size left" })
 map("n", "<right>", ":vertical resize+5<CR>", { desc = "Window size right" })
 
+--window layout relocate
+map("n","sh","<C-w>t<C-w>H",{desc="Window layout set to horizonal split"})
+map("n","sv","<C-w>t<C-w>K",{desc="Window layout set to vertical split"})
+
 -- Window layout rotation
 map("n", "srh", "<C-w>b<C-w>K", { desc = "Window rotate layout horizonal" })
 map("n", "srv", "<C-w>b<C-w>H", { desc = "Window rotate layout vertical" })
@@ -83,7 +87,7 @@ map("n", "tu", ":tabe<CR>", { desc = "Tab create new" })
 map("n", "tU", ":tab split<CR>", { desc = "Tab create with current buf" })
 map("n", "ta", ":-tabnext<CR>", { desc = "Tab switch to left" })
 map("n", "tl", ":+tabnext<CR>", { desc = "Tab switch to right" })
-map("n", "tma", ":-tabmove<CR>", { desc = "Tab move left" })
+map("n", "tmh", ":-tabmove<CR>", { desc = "Tab move left" })
 map("n", "tml", ":+tabmove<CR>", { desc = "Tab move right" })
 
 -- Miscellaneous
@@ -96,7 +100,7 @@ map(
   { desc = "Start profiling" }
 )
 map("n", "<leader>rc", ":e ~/.config/nvim/init.lua<CR>", { desc = "Edit Neovim config" })
-map("n", ",v", "v%", { desc = "select closure nearby" })
+-- map("n", ",v", "v%", { desc = "select closure nearby" })
 map("n", "<leader><esc>", "<nop>", { desc = "Disable '<leader><esc>' key" })
 
 -- Set up Vim Multiple Cursors key mappings using Neovim's Lua API
@@ -117,19 +121,19 @@ map(
   "<cmd> DapToggleBreakpoint <CR>",
   { silent = true, noremap = true, desc = "Debug toggle breakpoint" }
 )
-map("n", "<leader>dc", "<cmd> DapContinue <CR>", { silent = true, noremap = true, desc = "Debug toggle breakpoint" })
-map("n", "<leader>dr", "<cmd> DapToggleRepl <CR>", { silent = true, noremap = true, desc = "Debug toggle breakpoint" })
-map("n", "<leader>do", "<cmd> DapStepOver <CR>", { silent = true, noremap = true, desc = "Debug toggle breakpoint" })
-map("n", "<leader>di", "<cmd> DapStepInto <CR>", { silent = true, noremap = true, desc = "Debug toggle breakpoint" })
-map("n", "<leader>dt", "<cmd> DapStepOut <CR>", { silent = true, noremap = true, desc = "Debug toggle breakpoint" })
-map("n", "<leader>dl", "<cmd> DapShowLog <CR>", { silent = true, noremap = true, desc = "Debug toggle breakpoint" })
-map("n", "<leader>dx", "<cmd> DapTerminate <CR>", { silent = true, noremap = true, desc = "Debug toggle breakpoint" })
+map("n", "<leader>dc", "<cmd> DapContinue <CR>", { silent = true, noremap = true, desc = "Debug continue" })
+map("n", "<leader>dr", "<cmd> DapToggleRepl <CR>", { silent = true, noremap = true, desc = "Debug toggle repl" })
+map("n", "<leader>do", "<cmd> DapStepOver <CR>", { silent = true, noremap = true, desc = "Debug step over" })
+map("n", "<leader>di", "<cmd> DapStepInto <CR>", { silent = true, noremap = true, desc = "Debug step into" })
+map("n", "<leader>dt", "<cmd> DapStepOut <CR>", { silent = true, noremap = true, desc = "Debug step out" })
+map("n", "<leader>dl", "<cmd> DapShowLog <CR>", { silent = true, noremap = true, desc = "Debug show log" })
+map("n", "<leader>dx", "<cmd> DapTerminate <CR>", { silent = true, noremap = true, desc = "Debug terminate" })
 
 --edit
 map("n", "s", require("substitute").operator, { noremap = true })
-map("n", "sh", function()
-  require("substitute").operator { motion = "e" }
-end, { noremap = true })
+-- map("n", "sh", function()
+--   require("substitute").operator { motion = "e" }
+-- end, { noremap = true })
 map("x", "s", require("substitute.range").visual, { noremap = true })
 map("n", "ss", require("substitute").line, { noremap = true })
 map("n", "sa", require("substitute").eol, { noremap = true })
@@ -162,4 +166,16 @@ vim.keymap.set("n", "<leader>q", function()
   end
 end, { noremap = true, silent = true })
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
---
+local python_group = vim.api.nvim_create_augroup("PythonGroup", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  group = python_group,
+  callback = function()
+    local opts = { noremap = true, silent = true }
+    -- Normal mode mapping <C-e> to save and execute the current Python file
+    vim.api.nvim_buf_set_keymap(0, 'n', '<C-e>', '<cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
+    -- Insert mode mapping <C-e> to save and execute the current Python file
+    vim.api.nvim_buf_set_keymap(0, 'i', '<C-e>', '<esc><cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
+  end,
+})

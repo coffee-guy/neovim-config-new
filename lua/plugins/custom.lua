@@ -174,6 +174,7 @@ return {
   },
   {
     "pechorin/any-jump.vim",
+    lazy = false,
     config = function()
       vim.keymap.set("n", "e", ":AnyJump<CR>", { noremap = true })
       vim.keymap.set("x", "e", ":AnyJumpVisual<CR>", { noremap = true })

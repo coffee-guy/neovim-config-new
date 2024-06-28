@@ -7,6 +7,12 @@ return {
     end,
   },
 
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = function()
+      return require "configs.nvim-tree"
+    end,
+  },
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
@@ -20,19 +26,21 @@ return {
         vim.keymap.del("n", "K", { buffer = bufnr })
         local opts = { buffer = bufnr, noremap = true, nowait = true }
 
+        vim.diagnostic.config {
+          float = {
+            source = "always",
+            border = "rounded",
+          },
+        }
+
         vim.keymap.set("n", "<leader>n", vim.lsp.buf.hover, opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "gD", ":tab sp<CR><cmd>lua vim.lsp.buf.definition()<cr>", opts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
         vim.keymap.set("n", "go", vim.lsp.buf.type_definition, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("i", "<c-f>", vim.lsp.buf.signature_help, opts)
+        -- vim.keymap.set("i", "<c-f>", vim.lsp.buf.signature_help, opts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        -- vim.keymap.set("n", "<leader>aw", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "<leader>,", vim.lsp.buf.code_action, opts)
-        -- vim.keymap.set('x', '<leader>aw', vim.lsp.buf.range_code_action, opts)
-        -- vim.keymap.set('x', "<leader>,", vim.lsp.buf.range_code_action, opts)
-        vim.keymap.set("n", "<leader>tr", ":Trouble<cr>", opts)
         vim.keymap.set("n", "<leader>-", vim.diagnostic.goto_prev, opts)
         vim.keymap.set("n", "<leader>=", vim.diagnostic.goto_next, opts)
       end
@@ -86,10 +94,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<M-u>",
-          node_incremental = "<M-u>",
-          node_decremental = "<M-d>",
-          scope_incremental = "<M-o>",
+          init_selection = "<M-i>",
+          node_incremental = "<M-i>",
+          node_decremental = "<M-o>",
+          scope_incremental = "<M-p>",
         },
       },
     },

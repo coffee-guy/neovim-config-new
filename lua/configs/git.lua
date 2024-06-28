@@ -8,6 +8,12 @@ opt.on_attach = function(bufnr)
   )
   vim.keymap.set(
     "n",
+    "<leader>gs",
+    ":Gitsigns toggle_current_line_blame<CR>",
+    { noremap = true, silent = true, desc = "Git signs toggle line blame" }
+  )
+  vim.keymap.set(
+    "n",
     "<leader>g=",
     ":Gitsigns next_hunk<CR>",
     { noremap = true, silent = true, desc = "Git signs next hunk" }
