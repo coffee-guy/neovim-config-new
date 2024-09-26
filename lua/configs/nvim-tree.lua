@@ -76,6 +76,24 @@ local options = {
       },
     },
   },
+	on_attach = function(bufnr)
+	   local api = require "nvim-tree.api"
+
+	   local function opts(desc)
+	     return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+	   end
+
+	   -- 应用默认的键位映射
+	   api.config.mappings.default_on_attach(bufnr)
+
+		-- 取消 J 和 K 的默认映射
+		vim.keymap.del('n', 'J', { buffer = bufnr })
+		vim.keymap.del('n', 'K', { buffer = bufnr })
+
+	   -- 自定义键位映射
+	   -- vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent, opts('Up'))
+	   vim.keymap.set('n', '?',     api.tree.toggle_help, opts('Help'))
+	 end,
 }
 
 return options

@@ -9,9 +9,12 @@ return {
 
   {
     "nvim-tree/nvim-tree.lua",
-    opts = function()
-      return require "configs.nvim-tree"
-    end,
+		config = function ()
+			require("nvim-tree").setup(require "configs.nvim-tree")
+		end,
+    -- opts = function()
+    --   return require "configs.nvim-tree"
+    -- end,
   },
   -- These are some examples, uncomment them if you want to see them work!
   {
@@ -23,7 +26,7 @@ return {
         -- 调用原始的 nvchad on_attach 函数
         original_on_attach(client, bufnr)
         -- 删除原来的 'K' 映射
-        vim.keymap.del("n", "K", { buffer = bufnr })
+        -- vim.keymap.del("n", "K", { buffer = bufnr })
         local opts = { buffer = bufnr, noremap = true, nowait = true }
 
         vim.diagnostic.config {

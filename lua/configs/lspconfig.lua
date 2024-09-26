@@ -28,4 +28,14 @@ lspconfig.pyright.setup {
   on_init = on_init,
   capabilities = capabilities,
   filetypes = {"python"},
+	settings = {
+    python = {
+      analysis = {
+				diagnosticSeverityOverrides = {
+					reportOptionalMemberAccess = "warning",
+					reportArgumentType = false,
+				}
+      },
+    },
+  },
 }

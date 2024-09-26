@@ -3,11 +3,11 @@ require "nvchad.mappings"
 -- Disable mappings
 local nomap = vim.keymap.del
 
-nomap("n", "<leader>lf")
-nomap("n", "<C-k>")
-nomap("n", "<ESC>")
-nomap("n", "<leader>n")
-nomap("n", "<leader>rn")
+-- nomap("n", "<leader>lf")
+-- nomap("n", "<C-k>")
+-- nomap("n", "<ESC>")
+-- nomap("n", "<leader>n")
+-- nomap("n", "<leader>rn")
 -- add yours here
 local map = vim.keymap.set
 
@@ -16,6 +16,8 @@ vim.api.nvim_set_keymap('n', 'q', '<Nop>', {noremap = true, silent = true})
 
 -- 将 'Ctrl+m' 映射到录制宏
 vim.api.nvim_set_keymap('n', '<M-m>', 'q', {noremap = true, silent = true})
+
+map({"n","x"},"c","_c")
 
 -- Saving and quitting
 map("n", "S", ":w<CR>", { desc = "save file" })
@@ -105,14 +107,19 @@ map("n", "<leader><esc>", "<nop>", { desc = "Disable '<leader><esc>' key" })
 
 -- Set up Vim Multiple Cursors key mappings using Neovim's Lua API
 map("n", "<C-k>", "<Plug>(VM-Find-Under)", { silent = true })
-map("x", "<C-k>", "<Plug>(VM-Find-Subword-Under)", { silent = true })
--- Assuming that '' means you want to unmap 'Find Next' and 'Find Prev'
+map("x", "<C-k>", "<Plug>(VM-Find-Subword-Under)", { silent = true }) -- Assuming that '' means you want to unmap 'Find Next' and 'Find Prev'
 map("n", "<Plug>(VM-Find-Next)", "")
 map("n", "<Plug>(VM-Find-Prev)", "")
 map("n", "<C-x>", "<Plug>(VM-Remove-Region)", { silent = true })
 map("n", "<C-p>", "<Plug>(VM-Skip-Region)", { silent = true })
 -- map("n", "<C-r>", "<Plug>(VM-Redo)", { silent = true })
 map("n", "<leader>sa", "<Plug>(VM-Select-All)", { silent = true })
+
+--nvim-tree
+--
+nomap("n","<C-n>")
+map("n", "<C-q>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
+
 
 --python debug
 map(
@@ -121,6 +128,7 @@ map(
   "<cmd> DapToggleBreakpoint <CR>",
   { silent = true, noremap = true, desc = "Debug toggle breakpoint" }
 )
+-- map("n", "<leader>dp", "<cmd>DapLaunchWithArgs<CR>", { silent = true, noremap = true, desc = "Debug with custom parameters" })
 map("n", "<leader>dc", "<cmd> DapContinue <CR>", { silent = true, noremap = true, desc = "Debug continue" })
 map("n", "<leader>dr", "<cmd> DapToggleRepl <CR>", { silent = true, noremap = true, desc = "Debug toggle repl" })
 map("n", "<leader>do", "<cmd> DapStepOver <CR>", { silent = true, noremap = true, desc = "Debug step over" })

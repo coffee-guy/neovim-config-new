@@ -2,8 +2,8 @@ require "nvchad.options"
 
 -- add yours here!
 
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
+local o = vim.o
+o.cursorlineopt ='both' -- to enable cursorline!
 --
 vim.o.termguicolors = true
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
@@ -49,6 +49,7 @@ vim.o.visualbell = true
 vim.o.colorcolumn = '100'
 vim.o.updatetime = 100
 vim.o.virtualedit = 'block'
+
 
 vim.cmd([[
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
