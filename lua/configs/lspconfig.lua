@@ -8,34 +8,34 @@ local servers = { "html", "cssls" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-  }
+	lspconfig[lsp].setup {
+		on_attach = on_attach,
+		on_init = on_init,
+		capabilities = capabilities,
+	}
 end
 
 -- typescript
-lspconfig.tsserver.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
+lspconfig.ts_ls.setup {
+	on_attach = on_attach,
+	on_init = on_init,
+	capabilities = capabilities,
 }
 
 --python
 lspconfig.pyright.setup {
-  on_attach = on_attach,
-  on_init = on_init,
-  capabilities = capabilities,
-  filetypes = {"python"},
+	on_attach = on_attach,
+	on_init = on_init,
+	capabilities = capabilities,
+	filetypes = { "python" },
 	settings = {
-    python = {
-      analysis = {
+		python = {
+			analysis = {
 				diagnosticSeverityOverrides = {
 					reportOptionalMemberAccess = "warning",
 					reportArgumentType = false,
 				}
-      },
-    },
-  },
+			},
+		},
+	},
 }

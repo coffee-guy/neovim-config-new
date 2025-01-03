@@ -12,12 +12,12 @@ local nomap = vim.keymap.del
 local map = vim.keymap.set
 
 -- 禁用 'q'
-vim.api.nvim_set_keymap('n', 'q', '<Nop>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'q', '<Nop>', { noremap = true, silent = true })
 
 -- 将 'Ctrl+m' 映射到录制宏
-vim.api.nvim_set_keymap('n', '<M-m>', 'q', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<M-m>', 'q', { noremap = true, silent = true })
 
-map({"n","x"},"c","_c")
+map({ "n", "x" }, "c", "_c")
 
 -- Saving and quitting
 map("n", "S", ":w<CR>", { desc = "save file" })
@@ -77,8 +77,8 @@ map("n", "<left>", ":vertical resize-5<CR>", { desc = "Window size left" })
 map("n", "<right>", ":vertical resize+5<CR>", { desc = "Window size right" })
 
 --window layout relocate
-map("n","sh","<C-w>t<C-w>H",{desc="Window layout set to horizonal split"})
-map("n","sv","<C-w>t<C-w>K",{desc="Window layout set to vertical split"})
+map("n", "sh", "<C-w>t<C-w>H", { desc = "Window layout set to horizonal split" })
+map("n", "sv", "<C-w>t<C-w>K", { desc = "Window layout set to vertical split" })
 
 -- Window layout rotation
 map("n", "srh", "<C-w>b<C-w>K", { desc = "Window rotate layout horizonal" })
@@ -96,10 +96,10 @@ map("n", "tml", ":+tabmove<CR>", { desc = "Tab move right" })
 map("n", "<leader>sw", ":set wrap<CR>", { desc = "Toggle wrap" })
 map("n", "<leader><CR>", ":nohlsearch<CR>", { desc = "Clear search highlighting" })
 map(
-  "n",
-  "<leader>pr",
-  ":profile start profile.log<CR>:profile func *<CR>:profile file *<CR>",
-  { desc = "Start profiling" }
+	"n",
+	"<leader>pr",
+	":profile start profile.log<CR>:profile func *<CR>:profile file *<CR>",
+	{ desc = "Start profiling" }
 )
 map("n", "<leader>rc", ":e ~/.config/nvim/init.lua<CR>", { desc = "Edit Neovim config" })
 -- map("n", ",v", "v%", { desc = "select closure nearby" })
@@ -117,16 +117,16 @@ map("n", "<leader>sa", "<Plug>(VM-Select-All)", { silent = true })
 
 --nvim-tree
 --
-nomap("n","<C-n>")
+nomap("n", "<C-n>")
 map("n", "<C-q>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 
 
 --python debug
 map(
-  "n",
-  "<leader>db",
-  "<cmd> DapToggleBreakpoint <CR>",
-  { silent = true, noremap = true, desc = "Debug toggle breakpoint" }
+	"n",
+	"<leader>db",
+	"<cmd> DapToggleBreakpoint <CR>",
+	{ silent = true, noremap = true, desc = "Debug toggle breakpoint" }
 )
 -- map("n", "<leader>dp", "<cmd>DapLaunchWithArgs<CR>", { silent = true, noremap = true, desc = "Debug with custom parameters" })
 map("n", "<leader>dc", "<cmd> DapContinue <CR>", { silent = true, noremap = true, desc = "Debug continue" })
@@ -149,41 +149,43 @@ map("x", "s", require("substitute").visual, { noremap = true })
 
 --global quick leap
 map("n", "<ESC>", function()
-  local leap = require "leap"
-  vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
-  leap.opts.highlight_unlabeled_phase_one_targets = true
-  leap.opts.safe_labels = {}
-  leap.opts.labels = { "a", "r", "s", "t", "n", "e", "i", "o", "w", "f", "u", "y", "d", "h" }
-  vim.keymap.set("n", "<ESC>", function()
-    local current_window = vim.fn.win_getid()
-    leap.leap { target_windows = { current_window } }
-  end)
+	local leap = require "leap"
+	vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) -- or some grey
+	leap.opts.highlight_unlabeled_phase_one_targets = true
+	leap.opts.safe_labels = {}
+	leap.opts.labels = { "a", "r", "s", "t", "n", "e", "i", "o", "w", "f", "u", "y", "d", "h" }
+	vim.keymap.set("n", "<ESC>", function()
+		local current_window = vim.fn.win_getid()
+		leap.leap { target_windows = { current_window } }
+	end)
 end)
 
 local function run_vim_shortcut(shortcut)
-  local escaped_shortcut = vim.api.nvim_replace_termcodes(shortcut, true, false, true)
-  vim.api.nvim_feedkeys(escaped_shortcut, "n", true)
+	local escaped_shortcut = vim.api.nvim_replace_termcodes(shortcut, true, false, true)
+	vim.api.nvim_feedkeys(escaped_shortcut, "n", true)
 end
 
 -- close win below
 vim.keymap.set("n", "<leader>q", function()
-  vim.cmd "TroubleClose"
-  local wins = vim.api.nvim_tabpage_list_wins(0)
-  if #wins > 1 then
-    run_vim_shortcut [[<C-w>j:q<CR>]]
-  end
+	vim.cmd "TroubleClose"
+	local wins = vim.api.nvim_tabpage_list_wins(0)
+	if #wins > 1 then
+		run_vim_shortcut [[<C-w>j:q<CR>]]
+	end
 end, { noremap = true, silent = true })
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 local python_group = vim.api.nvim_create_augroup("PythonGroup", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "python",
-  group = python_group,
-  callback = function()
-    local opts = { noremap = true, silent = true }
-    -- Normal mode mapping <C-e> to save and execute the current Python file
-    vim.api.nvim_buf_set_keymap(0, 'n', '<C-e>', '<cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
-    -- Insert mode mapping <C-e> to save and execute the current Python file
-    vim.api.nvim_buf_set_keymap(0, 'i', '<C-e>', '<esc><cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
-  end,
+	pattern = "python",
+	group = python_group,
+	callback = function()
+		local opts = { noremap = true, silent = true }
+		-- Normal mode mapping <C-e> to save and execute the current Python file
+		vim.api.nvim_buf_set_keymap(0, 'n', '<C-e>',
+			'<cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
+		-- Insert mode mapping <C-e> to save and execute the current Python file
+		vim.api.nvim_buf_set_keymap(0, 'i', '<C-e>',
+			'<esc><cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
+	end,
 })
