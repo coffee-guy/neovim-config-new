@@ -9,7 +9,7 @@ local colors = dofile(vim.g.base46_cache .. "colors")
 --     print(key, value)
 -- end
 M.base46 = {
-	theme = "everforest",
+	theme = "chocolate",
 
 	hl_override = {
 		-- lighten or darken base46 theme variable
@@ -18,9 +18,9 @@ M.base46 = {
 		LineNr = { fg = colors.yellow },
 		CursorLineNr = { fg = colors.red },
 		CursorLine = {
-			bg = "#443139"
+			bg = "#443139",
 			-- bg="#89dceb"
-		}
+		},
 	},
 	-- hl_override = {
 	-- 	-- Comment = { italic = true },

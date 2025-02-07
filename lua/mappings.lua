@@ -12,10 +12,10 @@ local nomap = vim.keymap.del
 local map = vim.keymap.set
 
 -- 禁用 'q'
-vim.api.nvim_set_keymap('n', 'q', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "q", "<Nop>", { noremap = true, silent = true })
 
 -- 将 'Ctrl+m' 映射到录制宏
-vim.api.nvim_set_keymap('n', '<M-m>', 'q', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<M-m>", "q", { noremap = true, silent = true })
 
 map({ "n", "x" }, "c", "_c")
 
@@ -38,6 +38,9 @@ map({ "n", "v" }, "J", "5j", { desc = "Move down 5 lines" })
 map({ "n", "v" }, "W", "5w", { desc = "Move forward 5 words" })
 map({ "n", "v" }, "B", "5b", { desc = "Move backward 5 words" })
 map({ "n", "v" }, "M", "^", { desc = "Move to first non-blank character of line" })
+
+map({ "n" }, "n", "nzzzv")
+map({ "n" }, "N", "Nzzzv")
 
 --move line or block
 -- Normal-mode commands
@@ -120,7 +123,6 @@ map("n", "<leader>sa", "<Plug>(VM-Select-All)", { silent = true })
 nomap("n", "<C-n>")
 map("n", "<C-q>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 
-
 --python debug
 map(
 	"n",
@@ -182,10 +184,20 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function()
 		local opts = { noremap = true, silent = true }
 		-- Normal mode mapping <C-e> to save and execute the current Python file
-		vim.api.nvim_buf_set_keymap(0, 'n', '<C-e>',
-			'<cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
+		vim.api.nvim_buf_set_keymap(
+			0,
+			"n",
+			"<C-e>",
+			'<cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>',
+			opts
+		)
 		-- Insert mode mapping <C-e> to save and execute the current Python file
-		vim.api.nvim_buf_set_keymap(0, 'i', '<C-e>',
-			'<esc><cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>', opts)
+		vim.api.nvim_buf_set_keymap(
+			0,
+			"i",
+			"<C-e>",
+			'<esc><cmd>w<CR><cmd>exec "!python3" vim.fn.shellescape(vim.fn.expand("%"), 1)<CR>',
+			opts
+		)
 	end,
 })
