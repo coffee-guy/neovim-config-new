@@ -5,7 +5,7 @@ local options = {
 
 			"^.null-ls_*$",
 			"^.git$",
-		}
+		},
 	},
 	disable_netrw = true,
 	hijack_netrw = true,
@@ -31,7 +31,7 @@ local options = {
 	},
 	actions = {
 		open_file = {
-			resize_window = true,
+			resize_window = false,
 		},
 	},
 	renderer = {
@@ -87,12 +87,12 @@ local options = {
 		api.config.mappings.default_on_attach(bufnr)
 
 		-- 取消 J 和 K 的默认映射
-		vim.keymap.del('n', 'J', { buffer = bufnr })
-		vim.keymap.del('n', 'K', { buffer = bufnr })
+		vim.keymap.del("n", "J", { buffer = bufnr })
+		vim.keymap.del("n", "K", { buffer = bufnr })
 
 		-- 自定义键位映射
 		-- vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent, opts('Up'))
-		vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+		vim.keymap.set("n", "?", api.tree.toggle_help, opts "Help")
 	end,
 }
 

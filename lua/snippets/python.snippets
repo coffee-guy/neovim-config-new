@@ -1,0 +1,18 @@
+# 定义一个名为 "fist" 的代码片段
+snippet argfile
+    import argparse
+    import json
+
+    def setup_argparse():
+        parser = argparse.ArgumentParser(description='${1:Describe your script here}')
+        # parser.add_argument('--input', type=str, help='Input file path')
+        return parser.parse_args()
+
+    def main():
+        args = setup_argparse()
+        # 在这里编写主要逻辑
+        # 示例：使用 args.input 访问命令行参数
+        pass
+
+    if __name__ == "__main__":
+        main()
