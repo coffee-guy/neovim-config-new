@@ -12,8 +12,8 @@ return {
     opts = {
       -- add any opts here
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-      provider = "openai", -- Recommend using Claude
-      auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+      provider = "deepseek", -- Recommend using Claude
+      auto_suggestions_provider = "deepseek", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
       claude = {
         endpoint = "https://api.anthropic.com",
         model = "claude-3-5-sonnet-20241022",
@@ -28,6 +28,15 @@ return {
         timeout = 30000, -- Timeout in milliseconds
         temperature = 0,
         max_tokens = 8192,
+      },
+
+      vendors = {
+        deepseek = {
+          __inherited_from = "openai",
+          api_key_name = "DEEPSEEK_API_KEY",
+          endpoint = "https://api.deepseek.com",
+          model = "deepseek-chat",
+        },
       },
       ---Specify the special dual_boost mode
       ---1. enabled: Whether to enable dual_boost mode. Default to false.
@@ -52,6 +61,7 @@ return {
         auto_apply_diff_after_generation = false,
         support_paste_from_clipboard = false,
         minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
+        enable_cursor_planning_mode = true,
       },
       mappings = {
         --- @class AvanteConflictMappings
@@ -368,7 +378,7 @@ return {
   },
   --python lsp
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     ft = { "python", "lua" },
     opts = function()
       return require "configs.null_ls"
@@ -460,6 +470,7 @@ return {
         autochdir = true,
         open_mapping = [[<M-q>]],
         direction = "float",
+        shell = "zsh",
         auto_scroll = true,
         insert_mappings = true,
       }
