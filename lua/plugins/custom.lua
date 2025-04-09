@@ -255,27 +255,30 @@ return {
     lazy = false,
   },
 
-  {
-    -- 自动切换nvim的working directory
-    "airblade/vim-rooter",
-    lazy = false,
-    init = function()
-      vim.g.rooter_patterns = { "__vim_project_root", ".git/" }
-      vim.g.rooter_silent_chdir = true
-      -- set an autocmd
-      vim.api.nvim_create_autocmd("VimEnter", {
-        pattern = "*",
-        callback = function()
-          -- source .nvim.lua at project root
-          vim.cmd [[silent! source .vim.lua]]
-        end,
-      })
-    end,
-  },
+  -- 会导致保存到根目录的bug
+  -- {
+  --   -- 自动切换nvim的working directory
+  --   "airblade/vim-rooter",
+  --   lazy = false,
+  --   init = function()
+  --     vim.g.rooter_patterns = { ".git/" }
+  --     vim.g.rooter_silent_chdir = true
+  --     vim.g.rooter_resolve_links = 1
+  --     vim.g.rooter_cd_cmd = "lcd"
+  --     -- set an autocmd
+  --     vim.api.nvim_create_autocmd("VimEnter", {
+  --       pattern = "*",
+  --       callback = function()
+  --         -- source .nvim.lua at project root
+  --         vim.cmd [[silent! source .vim.lua]]
+  --       end,
+  --     })
+  --   end,
+  -- },
 
   {
     "kylechui/nvim-surround",
-    lazy = false,
+    -- lazy = false,
     version = "*",
     event = "VeryLazy",
     config = function()
