@@ -9,7 +9,7 @@ vim.o.termguicolors = true
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
 vim.o.ttyfast = true
-vim.o.autochdir = true
+vim.o.autochdir = false
 vim.o.exrc = true
 vim.o.secure = false
 vim.o.number = true
@@ -63,7 +63,7 @@ endif
 ]]
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = "*.md", command = "setlocal spell" })
-vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "silent! lcd %:p:h" })
+-- vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "silent! lcd %:p:h" })
 
 vim.cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
 
@@ -72,14 +72,14 @@ vim.g.any_jump_disable_default_keybindings = 1
 local config_path = vim.fn.stdpath "config"
 local current_config_path = config_path .. "/lua/configs/machine_specific.lua"
 if not vim.loop.fs_stat(current_config_path) then
-	local current_config_file = io.open(current_config_path, "wb")
-	local default_config_path = config_path .. "/default_config/_machine_specific_default.lua"
-	local default_config_file = io.open(default_config_path, "rb")
-	if default_config_file and current_config_file then
-		local content = default_config_file:read "*all"
-		current_config_file:write(content)
-		io.close(default_config_file)
-		io.close(current_config_file)
-	end
+  local current_config_file = io.open(current_config_path, "wb")
+  local default_config_path = config_path .. "/default_config/_machine_specific_default.lua"
+  local default_config_file = io.open(default_config_path, "rb")
+  if default_config_file and current_config_file then
+    local content = default_config_file:read "*all"
+    current_config_file:write(content)
+    io.close(default_config_file)
+    io.close(current_config_file)
+  end
 end
 require "configs.machine_specific"
