@@ -74,6 +74,7 @@ return {
         "ruff",
         "lua-language-server",
         "stylua",
+        "prettier",
       },
     },
   },

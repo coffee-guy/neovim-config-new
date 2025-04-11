@@ -6,6 +6,9 @@ local opts = {
     null_ls.builtins.formatting.black,
     -- null_ls.builtins.formatting.pyink,
     null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.prettier.with {
+      filetypes = { "json" }, -- 指定 prettier 只处理 JSON 文件
+    },
     -- null_ls.builtins.diagnostics.actionlint,
 
     --mypy 主要是类型检查
