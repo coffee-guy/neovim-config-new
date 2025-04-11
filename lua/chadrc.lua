@@ -9,7 +9,7 @@ local colors = dofile(vim.g.base46_cache .. "colors")
 --     print(key, value)
 -- end
 M.base46 = {
-  theme = "chocolate",
+  theme = "onedark",
 
   hl_override = {
     -- lighten or darken base46 theme variable

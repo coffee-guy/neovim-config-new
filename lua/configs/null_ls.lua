@@ -3,12 +3,13 @@ local opts = {
   sources = {
     -- 移除所有格式化工具（如 black、stylua），仅保留诊断工具
     -- null_ls.builtins.diagnostics.ruff,       -- Python 静态检查
-    null_ls.builtins.formatting.black,
+    -- null_ls.builtins.formatting.black,
     -- null_ls.builtins.formatting.pyink,
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.prettier.with {
-      filetypes = { "json" }, -- 指定 prettier 只处理 JSON 文件
-    },
+    -- null_ls.builtins.formatting.stylua,
+    -- null_ls.builtins.formatting.prettier.with {
+    --   filetypes = { "json", "jsonc" }, -- 明确指定文件类型
+    --   extra_args = { "--parser", "json" },
+    -- },
     -- null_ls.builtins.diagnostics.actionlint,
 
     --mypy 主要是类型检查

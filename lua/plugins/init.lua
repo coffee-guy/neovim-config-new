@@ -75,6 +75,7 @@ return {
         "lua-language-server",
         "stylua",
         "prettier",
+        "prettierd",
       },
     },
   },
@@ -89,6 +90,7 @@ return {
         "html",
         "css",
         "python",
+        "json",
       },
       highlight = {
         enable = true,

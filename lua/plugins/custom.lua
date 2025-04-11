@@ -382,7 +382,7 @@ return {
   --python lsp
   {
     "nvimtools/none-ls.nvim",
-    ft = { "python", "lua" },
+    ft = { "python", "lua", "json", "jsonc" },
     opts = function()
       return require "configs.null_ls"
     end,
