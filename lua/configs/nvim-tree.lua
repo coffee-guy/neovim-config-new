@@ -26,7 +26,7 @@ local options = {
     preserve_window_proportions = true,
   },
   git = {
-    enable = false,
+    enable = true,
     -- enable = true,
     -- ignore = true,
   },
