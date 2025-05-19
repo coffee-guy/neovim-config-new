@@ -25,7 +25,8 @@ map("n", "S", ":w<CR>", { desc = "save file" })
 map("n", "Q", ":q<CR>", { desc = "quit" })
 
 -- Normal and Visual mode mappings
-map({ "n", "v" }, ";", ":", { desc = "Enter command mode" })
+-- map({ "n", "v" }, ";", ":", { desc = "Enter command mode" })
+map({ "n", "v" }, "'", ",", { desc = "find reverse" })
 map("v", "Y", '"+y', { desc = "Yank to system clipboard" })
 
 -- Toggle character case with ` in Normal and Visual mode
