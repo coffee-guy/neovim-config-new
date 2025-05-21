@@ -21,6 +21,7 @@ M.base46 = {
       bg = "#443139",
       -- bg="#89dceb"
     },
+    ["@comment"] = { fg = "#9ca19a", italic = true },
   },
   -- hl_override = {
   -- 	-- Comment = { italic = true },
