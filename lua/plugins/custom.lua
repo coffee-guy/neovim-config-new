@@ -611,4 +611,63 @@ return {
       vim.keymap.set("n", "<c-g>", ":LazyGit<CR>", { noremap = true, silent = true })
     end,
   },
+  -- tentcent copilot
+  {
+    "gongfeng-copilot",
+    url = "git@git.woa.com:alvinfei/copilot.git",
+    lazy = true,
+    event = "InsertEnter",
+    keys = {
+      {
+        "<C-i>",
+        function()
+          vim.call "copilot#Accept"
+        end,
+        mode = "i",
+        desc = "Accept Copilot Suggestion",
+      },
+    },
+    cond = function()
+      local absolute_path = vim.fn.expand "%:p"
+      if string.match(absolute_path, "secret") then
+        return false
+      end
+      return true
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function()
+      local cmp = require "cmp"
+      local conf = require "nvchad.configs.cmp"
+
+      local mymappings = {
+        -- ["<M-e>"] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     cmp.select_next_item()
+        --   elseif require("luasnip").expand_or_jumpable() then
+        --     require("luasnip").expand_or_jump()
+        --   else
+        --     fallback()
+        --   end
+        -- end, { "i", "s" }),
+        -- ["<M-q>"] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     cmp.select_prev_item()
+        --   elseif require("luasnip").jumpable(-1) then
+        --     require("luasnip").jump(-1)
+        --   else
+        --     fallback()
+        --   end
+        -- end, { "i", "s" }),
+        -- ["<Tab>"] = cmp.mapping.confirm {
+        --   behavior = cmp.ConfirmBehavior.Replace,
+        --   select = true,
+        -- },
+        ["<C-s>"] = cmp.mapping.close(),
+      }
+      conf.mapping = vim.tbl_deep_extend("force", conf.mapping, mymappings)
+      return conf
+    end,
+  },
 }
