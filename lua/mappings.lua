@@ -12,13 +12,14 @@ local nomap = vim.keymap.del
 local map = vim.keymap.set
 
 -- 禁用 'q'
-vim.api.nvim_set_keymap("n", "q", "<Nop>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "q", "<Nop>", { noremap = true, silent = true })
 
 -- 将 'Ctrl+m' 映射到录制宏
 vim.api.nvim_set_keymap("n", "<M-m>", "q", { noremap = true, silent = true })
 
 -- 引起ciw等命令错误
 -- map({ "n", "x" }, "c", "_c")
+-- map({ "n", "x" }, "C", "_c")
 
 -- Saving and quitting
 map("n", "S", ":w<CR>", { desc = "save file" })
@@ -97,6 +98,9 @@ map("n", "tl", ":+tabnext<CR>", { desc = "Tab switch to right" })
 map("n", "tmh", ":-tabmove<CR>", { desc = "Tab move left" })
 map("n", "tml", ":+tabmove<CR>", { desc = "Tab move right" })
 
+--avante
+map("n", "<leader>as", ":AvanteStop<cr>", { desc = "avante stop generate" })
+
 -- Miscellaneous
 map("n", "<leader>sw", ":set wrap<CR>", { desc = "Toggle wrap" })
 map("n", "<leader><CR>", ":nohlsearch<CR>", { desc = "Clear search highlighting" })
@@ -150,6 +154,9 @@ map("x", "s", require("substitute.range").visual, { noremap = true })
 map("n", "ss", require("substitute").line, { noremap = true })
 map("n", "sa", require("substitute").eol, { noremap = true })
 map("x", "s", require("substitute").visual, { noremap = true })
+
+--gongfeng copilot
+map("i", "<C-b>", "copilot#AcceptLine()", { noremap = true, silent = true, expr = true })
 
 --global quick leap
 map("n", "<ESC>", function()

@@ -17,6 +17,26 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy_config = require "configs.lazy"
 
+-- ~/.config/nvim/init.lua
+
+-- 设置剪贴板
+vim.opt.clipboard:append "unnamedplus"
+
+-- 自定义剪贴板提供者
+if vim.fn.executable "clipboard-provider" == 1 then
+  vim.g.clipboard = {
+    name = "myClipboard",
+    copy = {
+      ["+"] = "clipboard-provider copy",
+      ["*"] = "clipboard-provider copy",
+    },
+    paste = {
+      ["+"] = "clipboard-provider paste",
+      ["*"] = "clipboard-provider paste",
+    },
+  }
+end
+
 -- load plugins
 require("lazy").setup({
   {

@@ -2,24 +2,33 @@ snippet argfile
     #!/usr/bin/env python3
     # -*- coding: utf-8 -*-
     # Author: alvinfei
-    # Date: ${1:2024-05-20}
+    # Desc: ${1:Describe your script here}
+    # Date: ${2:2024-05-20}
 
     import argparse
-    import json
+    import json 
+    import jsonlines
 
     def setup_argparse():
-        parser = argparse.ArgumentParser(description='${2:Describe your script here}')
+        parser = argparse.ArgumentParser()
         parser.add_argument('--input_file', type=str, help='Input file path')
-        parser.add_argument('--output_file', type=str, help='Input file path')
+        parser.add_argument('--output_file', type=str, help='Output file path')
         return parser.parse_args()
 
     def main():
         args = setup_argparse()
         # 在这里编写主要逻辑
-        with open(args.input_file) as f:
+        with jsonlines.open(args.input_file) as f_reader:
             pass
-        with open(args.output_file,"w") as fw:
+        with jsonlines.open(args.output_file,"w") as f_writer:
             pass
 
     if __name__ == "__main__":
         main()
+
+snippet head
+    #!/usr/bin/env python3
+    # -*- coding: utf-8 -*-
+    # Author: alvinfei
+    # Desc: ${1:Describe your script here}
+    # Date: ${2:2024-05-20}
