@@ -156,7 +156,7 @@ map("n", "sa", require("substitute").eol, { noremap = true })
 map("x", "s", require("substitute").visual, { noremap = true })
 
 --gongfeng copilot
-map("i", "<C-b>", "copilot#AcceptLine()", { noremap = true, silent = true, expr = true })
+-- map("i", "<C-b>", "copilot#AcceptLine()", { noremap = true, silent = true, expr = true })
 
 --global quick leap
 map("n", "<ESC>", function()
