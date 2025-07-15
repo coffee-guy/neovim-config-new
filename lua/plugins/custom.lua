@@ -6,6 +6,7 @@ return {
   },
   {
     "yetone/avante.nvim",
+    build = "make",
     event = "VeryLazy",
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
@@ -13,38 +14,52 @@ return {
       -- add any opts here
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
       provider = "deepseek", -- Recommend using Claude
-      auto_suggestions_provider = "deepseek", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
       cursor_applying_provider = "deepseek",
-      claude = {
-        endpoint = "https://api.anthropic.com",
-        model = "claude-3-5-sonnet-20241022",
-        temperature = 0,
-        max_tokens = 4096,
+      behaviour = {
+        auto_apply_diff_after_generation = false,
+        enable_cursor_planning_mode = true, -- 是否启用 Cursor 规划模式。默认为 false。
       },
-      openai = {
-        endpoint = "https://api.openai.com/v1",
-        -- proxy = "http://127.0.0.1:7890",
-        -- proxy = "socks5://127.0.0.1:7890",
-        model = "gpt-4o-mini",
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
-        max_tokens = 8192,
-      },
+      providers = {
+        claude = {
+          endpoint = "https://api.anthropic.com",
+          model = "claude-3-5-sonnet-20241022",
+          extra_request_body = {
+            temperature = 0,
+            max_tokens = 4096,
+          },
+        },
+        openai = {
+          endpoint = "https://api.openai.com/v1",
+          -- proxy = "http://127.0.0.1:7890",
+          -- proxy = "socks5://127.0.0.1:7890",
+          model = "gpt-4o-mini",
+          timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
 
-      vendors = {
+            temperature = 0,
+            max_tokens = 8192,
+          },
+        },
+
         deepseek = {
           __inherited_from = "openai",
           api_key_name = "DEEPSEEK_API_KEY",
           endpoint = "https://api.deepseek.com",
           model = "deepseek-chat",
-          temperature = 0,
-          max_tokens = 8192,
+          extra_request_body = {
+            temperature = 0,
+            max_tokens = 8192,
+          },
+        },
+        openrouter = {
+          __inherited_from = "openai",
+          endpoint = "https://openrouter.ai/api/v1",
+          api_key_name = "OPENROUTER_API_KEY",
+          model = "anthropic/claude-3.7-sonnet",
+          -- model = "anthropic/claude-3.5-sonnet",
         },
       },
     },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
