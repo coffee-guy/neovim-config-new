@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.snipmate_snippets_path = vim.fn.stdpath "config" .. "/lua/snippets"
+vim.o.shell = '/bin/zsh'
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
@@ -12,6 +13,14 @@ if not vim.uv.fs_stat(lazypath) then
   local repo = "https://github.com/folke/lazy.nvim.git"
   vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
+
+-- 对所有 markdown 文件禁用拼写检查
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt.spell = false
+  end
+})
 
 vim.opt.rtp:prepend(lazypath)
 
