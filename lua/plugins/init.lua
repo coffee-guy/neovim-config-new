@@ -122,4 +122,24 @@ return {
       require("which-key").setup(opts)
     end,
   },
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = function(_, conf)
+      -- 确保conf.pickers存在
+      conf.pickers = conf.pickers or {}
+
+      -- 配置live_grep - 使用简单的方法
+      conf.pickers.live_grep = {
+        additional_args = function()
+          return { "--glob", "!*.json", "--glob", "!*.txt", "--glob", "!*.jsonl", "--glob", "!*.log" }
+        end,
+      }
+
+      -- 配置find_files
+      conf.pickers.find_files = conf.pickers.find_files or {}
+      conf.pickers.find_files.hidden = false
+
+      return conf
+    end,
+  },
 }
