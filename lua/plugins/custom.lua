@@ -13,11 +13,31 @@ return {
     opts = {
       -- add any opts here
       ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-      provider = "deepseek", -- Recommend using Claude
-      cursor_applying_provider = "deepseek",
+      -- provider = "deepseek", -- Recommend using Claude
+      provider = "moonshot", -- Recommend using Claude
+      mode = "agentic",
       behaviour = {
         auto_apply_diff_after_generation = false,
         enable_cursor_planning_mode = true, -- 是否启用 Cursor 规划模式。默认为 false。
+      },
+      mappings = {
+        cancel = {
+          normal = { "<C-c>", "<Esc>", "q" },
+          insert = { "<C-c>" },
+        },
+        sidebar = {
+          close = { "Q" },
+          close_from_input = { normal = "Q", insert = "<C-c>" },
+        },
+      },
+      windows = {
+        sidebar_header = {
+          enabled = false,
+        },
+        input = {
+          prefix = "> ",
+          height = 10, -- Height of the input window in vertical layout
+        },
       },
       providers = {
         claude = {
@@ -49,6 +69,15 @@ return {
           extra_request_body = {
             temperature = 0,
             max_tokens = 8192,
+          },
+        },
+        moonshot = {
+          endpoint = "https://api.moonshot.cn/v1",
+          model = "kimi-k2-0711-preview",
+          timeout = 30000, -- Timeout in milliseconds
+          extra_request_body = {
+            temperature = 0.75,
+            max_tokens = 32768,
           },
         },
         openrouter = {
